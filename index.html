@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>악마의 변호인</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f1e7;        /* warm cream */
+    --bg-deep: #efe8d8;
+    --surface: #ffffff;
+    --ink: #1f1a14;
+    --ink-2: #4b4338;
+    --ink-3: #8a7f6e;
+    --line: #e5dccb;
+    --line-soft: #efe8d8;
+    --devil: #b8453d;     /* tone-down red */
+    --devil-deep: #8b3a32;
+    --skin: #f7d9c0;
+    --green: oklch(0.72 0.16 145);
+    --green-bg: oklch(0.95 0.06 145);
+    --yellow: oklch(0.78 0.15 80);
+    --yellow-bg: oklch(0.96 0.07 85);
+    --red: oklch(0.62 0.21 25);
+    --red-bg: oklch(0.95 0.06 25);
+  }
+  * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans KR', 'Pretendard', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    min-height: 100vh;
+    /* subtle paper grain via radial dots */
+    background-image:
+      radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: 0 0;
+  }
+  #root { min-height: 100vh; }
+  button { font-family: inherit; cursor: pointer; }
+  textarea, input, button { font-family: inherit; }
+  textarea:focus, input:focus { outline: none; }
+
+  /* Pixel character — keep crisp */
+  .pixel-img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    display: block;
+  }
+
+  /* Animations */
+  @keyframes sway {
+    0%, 100% { transform: rotate(-3.5deg) translateY(0); }
+    50%      { transform: rotate(3.5deg) translateY(-2px); }
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-6px); }
+  }
+  @keyframes blink {
+    0%, 92%, 100% { opacity: 1; }
+    95% { opacity: 0.15; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0% { transform: scale(.92); opacity: 0; }
+    60% { transform: scale(1.02); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+  }
+
+  .anim-fade-up { animation: fade-up .35s ease-out both; }
+  .anim-pop { animation: pop .45s cubic-bezier(.5,1.6,.4,1) both; }
+
+  /* Scrollbar polish */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #d8cdb7; border-radius: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+</style>
+
+<script type="application/json" id="speaker-notes">[]</script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="tweaks-panel.jsx?v=1"></script>
+  <script type="text/babel" src="character.jsx?v=2"></script>
+  <script type="text/babel" src="screens.jsx?v=1"></script>
+  <script type="text/babel" src="app.jsx?v=1"></script>
+</body>
+</html>

@@ -13,9 +13,15 @@ function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [screen, setScreen] = useApS('input'); // 'input' | 'loading' | 'result'
   const [submission, setSubmission] = useApS(null);
+  const [result, setResult] = useApS(null);
 
   const handleSubmit = (payload) => {
     setSubmission(payload);
+    // Run the heuristic simulator with the user's draft + mode.
+    const sim = window.simulateValidation(
+      payload.draft, payload.mode, payload.fileName
+    );
+    setResult(sim);
     setScreen('loading');
   };
 
@@ -47,7 +53,8 @@ function App() {
       )}
       {screen === 'result' && (
         <ResultScreen
-          data={SAMPLE_RESULT}
+          data={result || SAMPLE_RESULT}
+          submission={submission}
           onRetry={handleRetry}
           accent={t.accent}
         />

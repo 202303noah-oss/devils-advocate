@@ -63,7 +63,8 @@ function Character({ size = 200, state = 'idle', className = '' }) {
   const [srcIdx, setSrcIdx] = useState(0);
   const [failed, setFailed] = useState(false);
 
-  const animation = 'none'; // image asset handles motion itself
+  const animation =
+    state === 'spin' ? 'spin-slow 2.6s linear infinite' : 'none';
 
   const wrapStyle = {
     width: size,
@@ -80,9 +81,9 @@ function Character({ size = 200, state = 'idle', className = '' }) {
     objectFit: 'contain',
     objectPosition: 'center',
     display: 'block',
-    // Blends white background into the page bg so the character doesn't sit
-    // in a white box. With a transparent PNG, this is a no-op.
-    mixBlendMode: 'multiply',
+    // Transparent PNG — no blend needed. (multiply is harmless on transparent
+    // pixels but can darken anti-aliased edges, so we leave it off.)
+    // mixBlendMode removed — devil.png is transparent.
   };
 
   return (

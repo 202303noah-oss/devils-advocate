@@ -1,118 +1,414 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>악마의 변호인</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
 <style>
-  :root {
-    --bg: #f6f1e7;        /* warm cream */
-    --bg-deep: #efe8d8;
-    --surface: #ffffff;
-    --ink: #1f1a14;
-    --ink-2: #4b4338;
-    --ink-3: #8a7f6e;
-    --line: #e5dccb;
-    --line-soft: #efe8d8;
-    --devil: #b8453d;     /* tone-down red */
-    --devil-deep: #8b3a32;
-    --skin: #f7d9c0;
-    --green: oklch(0.72 0.16 145);
-    --green-bg: oklch(0.95 0.06 145);
-    --yellow: oklch(0.78 0.15 80);
-    --yellow-bg: oklch(0.96 0.07 85);
-    --red: oklch(0.62 0.21 25);
-    --red-bg: oklch(0.95 0.06 25);
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2') format('woff2-variations');
+    font-weight: 45 920;
   }
-  * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-  html, body { margin: 0; padding: 0; }
+
+  :root {
+    --navy: #2A6A94;
+    --orange: #C1622A;
+    --bg: #F7F6F3;
+    --card: #FFFFFF;
+    --green: #2E7D4F;
+    --green-bg: #E4F1E9;
+    --yellow: #B08900;
+    --yellow-bg: #FDF6E3;
+    --red: #B03A2E;
+    --red-bg: #FBEAE7;
+    --ink: #24262B;
+    --sub: #6E7178;
+  }
+
+  * { box-sizing: border-box; }
+
   body {
+    margin: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Pretendard', 'Pretendard Variable', 'IBM Plex Sans KR', system-ui, -apple-system, sans-serif;
-    font-size: 15px;
-    line-height: 1.55;
     min-height: 100vh;
-    /* subtle paper grain via radial dots */
-    background-image:
-      radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
-    background-size: 22px 22px;
-    background-position: 0 0;
-  }
-  #root { min-height: 100vh; }
-  button { font-family: inherit; cursor: pointer; }
-  textarea, input, button { font-family: inherit; }
-  textarea:focus, input:focus { outline: none; }
-
-  /* Pixel character — keep crisp */
-  .pixel-img {
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-    display: block;
   }
 
-  /* Animations */
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  /* ---------- Input screen ---------- */
+  .character {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    background: var(--card);
+    border-radius: 24px;
+    border: 2px solid #ECE9E2;
+    animation: sway 3.2s ease-in-out infinite;
+  }
   @keyframes sway {
-    0%, 100% { transform: rotate(-3.5deg) translateY(0); }
-    50%      { transform: rotate(3.5deg) translateY(-2px); }
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
   }
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50%     { transform: translateY(-6px); }
-  }
-  @keyframes blink {
-    0%, 92%, 100% { opacity: 1; }
-    95% { opacity: 0.15; }
-  }
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes pop {
-    0% { transform: scale(.92); opacity: 0; }
-    60% { transform: scale(1.02); }
-    100% { transform: scale(1); opacity: 1; }
-  }
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 0.3; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1); }
-  }
-  @keyframes shake {
-    0%,100% { transform: translateX(0); }
-    25% { transform: translateX(-2px); }
-    75% { transform: translateX(2px); }
+  .character.small {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+    border-radius: 14px;
+    margin: 0;
+    animation: none;
   }
 
-  .anim-fade-up { animation: fade-up .35s ease-out both; }
-  .anim-pop { animation: pop .45s cubic-bezier(.5,1.6,.4,1) both; }
+  .devil-line {
+    text-align: center;
+    font-size: 15px;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  h1.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--orange);
+    margin: 0 0 6px;
+  }
+  p.subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: var(--sub);
+    margin: 0 0 36px;
+  }
 
-  /* Scrollbar polish */
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-thumb { background: #d8cdb7; border-radius: 8px; }
-  ::-webkit-scrollbar-track { background: transparent; }
+  .field-label {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 180px;
+    border: 1.5px solid #E4E1D9;
+    border-radius: 16px;
+    background: var(--card);
+    padding: 18px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--ink);
+    resize: vertical;
+    line-height: 1.6;
+  }
+  textarea:focus { outline: none; border-color: var(--navy); }
+
+  .mode-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 28px 0 32px;
+  }
+  .mode-card {
+    border: 1.5px solid #E4E1D9;
+    border-radius: 16px;
+    padding: 16px 18px;
+    cursor: pointer;
+    background: var(--card);
+    transition: border-color .15s ease;
+  }
+  .mode-card.selected { border-color: var(--orange); background: #FBF3ED; }
+  .mode-card .icon { font-size: 18px; margin-bottom: 6px; }
+  .mode-card .name { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .mode-card .desc { font-size: 12.5px; color: var(--sub); }
+
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 14px;
+    background: var(--navy);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .submit-btn:disabled { background: #B7C6D0; cursor: default; }
+
+  /* ---------- Result screen ---------- */
+  .result-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .result-header .mode-tag {
+    margin-left: auto;
+    font-size: 12.5px;
+    color: var(--sub);
+    background: var(--card);
+    border: 1px solid #E4E1D9;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .devil-comment {
+    font-size: 14.5px;
+    color: var(--ink);
+    background: var(--card);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    line-height: 1.6;
+  }
+
+  .status-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .status-card {
+    border-radius: 14px;
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: #eee;
+  }
+  .status-card.active { border-color: var(--ink); }
+  .status-card .dot { font-size: 20px; margin-bottom: 6px; }
+  .status-card .label { font-size: 13px; font-weight: 700; }
+  .status-card.green { background: var(--green-bg); }
+  .status-card.yellow { background: var(--yellow-bg); }
+  .status-card.red { background: var(--red-bg); }
+
+  .feedback-box {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .feedback-box .axis-name { font-weight: 700; font-size: 15px; margin-bottom: 10px; }
+  .feedback-box .reason { font-size: 14.5px; line-height: 1.6; margin-bottom: 12px; }
+  .feedback-box .question {
+    font-size: 14px;
+    color: var(--navy);
+    background: #EAF1F6;
+    border-radius: 10px;
+    padding: 12px 14px;
+    line-height: 1.5;
+  }
+
+  .closing {
+    text-align: center;
+    font-size: 14px;
+    color: var(--sub);
+    margin-bottom: 24px;
+  }
+
+  .retry-btn {
+    width: 100%;
+    padding: 14px;
+    border: 1.5px solid #E4E1D9;
+    border-radius: 14px;
+    background: var(--card);
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .loading, .error-box {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--sub);
+    font-size: 14.5px;
+  }
+  .error-box { color: var(--red); }
+
+  .hidden { display: none; }
 </style>
 </head>
 <body>
-  <div id="root"></div>
+<div class="wrap" id="app"></div>
 
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script>
+const STATE = { screen: 'input', mode: 'normal', draft: '', result: null, activeTab: null, loading: false, error: null };
 
-  <script type="text/babel" src="tweaks-panel.jsx?v=1"></script>
-  <script type="text/babel" src="simulate.jsx?v=1"></script>
-  <script type="text/babel" src="devil-api.jsx?v=1"></script>
-  <script type="text/babel" src="character.jsx?v=3"></script>
-  <script type="text/babel" src="screens.jsx?v=2"></script>
-  <script type="text/babel" src="app.jsx?v=1"></script>
+function render() {
+  const app = document.getElementById('app');
+  if (STATE.screen === 'input') {
+    app.innerHTML = renderInput();
+    bindInputEvents();
+  } else if (STATE.screen === 'loading') {
+    app.innerHTML = `<div class="character" style="margin-bottom:24px;">😈</div><div class="loading">기획을 곰곰이 뜯어보는 중...</div>`;
+  } else if (STATE.screen === 'result') {
+    app.innerHTML = renderResult();
+    bindResultEvents();
+  } else if (STATE.screen === 'error') {
+    app.innerHTML = `<div class="error-box">${STATE.error}</div><button class="retry-btn" onclick="goInput()">다시 시도</button>`;
+  }
+}
+
+function renderInput() {
+  return `
+    <div class="character">😈</div>
+    <div class="devil-line">"나는야 악마의 변호인!"</div>
+    <h1 class="title">작성한 기획 초안을 입력하세요</h1>
+    <p class="subtitle">완벽하지 않아도 괜찮습니다.</p>
+
+    <div class="field-label">기획 초안</div>
+    <textarea id="draft-input" placeholder="여기에 기획 초안을 입력하세요.">${STATE.draft}</textarea>
+
+    <div class="mode-row">
+      <div class="mode-card ${STATE.mode === 'hard' ? 'selected' : ''}" data-mode="hard">
+        <div class="icon">🔥</div>
+        <div class="name">빡센 검증</div>
+        <div class="desc">끝까지 설득해야 합니다</div>
+      </div>
+      <div class="mode-card ${STATE.mode === 'normal' ? 'selected' : ''}" data-mode="normal">
+        <div class="icon">⚡</div>
+        <div class="name">기본 검증</div>
+        <div class="desc">핵심만 짚습니다</div>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn">기획 꼬기 시작</button>
+  `;
+}
+
+function bindInputEvents() {
+  document.querySelectorAll('.mode-card').forEach(el => {
+    el.addEventListener('click', () => {
+      STATE.mode = el.dataset.mode;
+      render();
+    });
+  });
+  document.getElementById('draft-input').addEventListener('input', (e) => {
+    STATE.draft = e.target.value;
+  });
+  document.getElementById('submit-btn').addEventListener('click', submitDraft);
+}
+
+async function submitDraft() {
+  if (!STATE.draft || STATE.draft.trim().length === 0) return;
+  STATE.screen = 'loading';
+  STATE.error = null;
+  render();
+
+  try {
+    const resp = await fetch('/api/judge', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ draft: STATE.draft, mode: STATE.mode }),
+    });
+
+    const raw = await resp.text();
+    let data;
+
+    try {
+      data = raw ? JSON.parse(raw) : {};
+    } catch {
+      throw new Error(`서버 응답을 읽지 못했습니다. (HTTP ${resp.status})`);
+    }
+
+    if (!resp.ok || data.error) {
+      const detail =
+        data.detail?.error?.message ||
+        data.detail?.message ||
+        (typeof data.detail === 'string' ? data.detail : '') ||
+        data.error ||
+        `HTTP ${resp.status}`;
+
+      throw new Error(detail);
+    }
+
+    STATE.result = data;
+
+    if (data.systemMessage) {
+      STATE.screen = 'result';
+      STATE.activeTab = null;
+    } else {
+      if (!data.status || !data.feedback) {
+        throw new Error('판정 결과 형식이 올바르지 않습니다.');
+      }
+
+      const order = { red: 0, yellow: 1, green: 2 };
+      const axes = ['problem', 'target', 'solution'];
+      axes.sort((a, b) => order[data.status[a]] - order[data.status[b]]);
+      STATE.activeTab = data.defaultTab || axes[0];
+      STATE.screen = 'result';
+    }
+  } catch (e) {
+    STATE.error = '판정 중 문제가 발생했습니다: ' + e.message;
+    STATE.screen = 'error';
+  }
+
+  render();
+}
+
+function goInput() {
+  STATE.screen = 'input';
+  render();
+}
+
+const AXIS_LABEL = { problem: '문제 정의', target: '대상 정의', solution: '해결 방식' };
+const DOT = { green: '🟢', yellow: '🟡', red: '🔴' };
+
+function renderResult() {
+  const r = STATE.result;
+  if (r.systemMessage) {
+    return `
+      <div class="result-header"><div class="character small">😈</div></div>
+      <div class="devil-comment">${r.systemMessage}</div>
+      <button class="retry-btn" onclick="goInput()">수정해서 다시 검증</button>
+    `;
+  }
+  const axes = ['problem', 'target', 'solution'];
+  const cards = axes.map(a => `
+    <div class="status-card ${r.status[a]} ${STATE.activeTab === a ? 'active' : ''}" data-axis="${a}">
+      <div class="dot">${DOT[r.status[a]]}</div>
+      <div class="label">${AXIS_LABEL[a]}</div>
+    </div>
+  `).join('');
+
+  const fb = r.feedback[STATE.activeTab];
+
+  return `
+    <div class="result-header">
+      <div class="character small">😈</div>
+      <span class="mode-tag">${r.modeLabel || (r.mode === 'hard' ? '빡센 검증' : '기본 검증')}</span>
+    </div>
+    <div class="devil-comment">${r.devilComment || ''}</div>
+    <div class="status-row">${cards}</div>
+    <div class="feedback-box">
+      <div class="axis-name">${AXIS_LABEL[STATE.activeTab]} ${DOT[r.status[STATE.activeTab]]}</div>
+      <div class="reason">${fb.reason}</div>
+      <div class="question">→ ${fb.question}</div>
+    </div>
+    <div class="closing">${r.closingMessage || ''}</div>
+    <button class="retry-btn" onclick="goInput()">수정해서 다시 검증</button>
+  `;
+}
+
+function bindResultEvents() {
+  document.querySelectorAll('.status-card').forEach(el => {
+    el.addEventListener('click', () => {
+      STATE.activeTab = el.dataset.axis;
+      render();
+    });
+  });
+}
+
+render();
+</script>
 </body>
 </html>

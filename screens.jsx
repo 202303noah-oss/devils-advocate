@@ -157,6 +157,7 @@ function InputScreen({ onSubmit, characterSize, accent }) {
             fontWeight: 700,
             letterSpacing: '-0.005em',
             color: accent,
+            whiteSpace: 'nowrap',
           }}>
             악마의 변호인
           </span>
@@ -475,6 +476,123 @@ function LoadingScreen({ characterSize, accent }) {
 
 window.LoadingScreen = LoadingScreen;
 
+// ─────────────────────────────────────────────────────────────────────
+// EDGE SCREEN — draft was too thin / off-topic / unreadable for the API
+// to grade. Not an error — the model's own judgment call.
+// ────────────────────────────────────────────────────────────────
+function EdgeScreen({ message, onRetry, characterSize, accent }) {
+  return (
+    <Shell>
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        marginTop: 56, textAlign: 'center',
+      }}>
+        <Character size={characterSize} state="static" />
+
+        <h2 style={{
+          marginTop: 28,
+          fontSize: 24, fontWeight: 700, color: 'var(--ink)',
+          letterSpacing: '-0.01em',
+        }}>
+          잠깐만요, 판단이 안 되네요
+        </h2>
+
+        <div style={{
+          marginTop: 18,
+          maxWidth: 420,
+          padding: '16px 20px',
+          background: 'var(--surface)',
+          border: '1px solid var(--line)',
+          borderRadius: 14,
+          fontSize: 16,
+          lineHeight: 1.55,
+          color: 'var(--ink-2)',
+          fontFamily: 'Gowun Dodum, IBM Plex Sans KR, sans-serif',
+        }}>
+          {message}
+        </div>
+
+        <button
+          onClick={onRetry}
+          style={{
+            marginTop: 28,
+            padding: '14px 28px',
+            border: 'none',
+            borderRadius: 12,
+            background: 'var(--ink)',
+            color: '#fff',
+            fontSize: 15.5,
+            fontWeight: 700,
+            cursor: 'pointer',
+          }}
+        >
+          ↺ 다시 작성하기
+        </button>
+      </div>
+    </Shell>
+  );
+}
+
+window.EdgeScreen = EdgeScreen;
+
+// ─────────────────────────────────────────────────────────────────────
+// ERROR SCREEN — the API call itself failed (network, parsing, rate limit).
+// ────────────────────────────────────────────────────────────────
+function ErrorScreen({ message, onRetry, characterSize, accent }) {
+  return (
+    <Shell>
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        marginTop: 56, textAlign: 'center',
+      }}>
+        <Character size={characterSize} state="static" />
+
+        <h2 style={{
+          marginTop: 28,
+          fontSize: 24, fontWeight: 700, color: 'var(--ink)',
+          letterSpacing: '-0.01em',
+        }}>
+          검증을 불러오지 못했어요
+        </h2>
+
+        <div style={{
+          marginTop: 18,
+          maxWidth: 420,
+          padding: '16px 20px',
+          background: 'var(--red-bg)',
+          border: '1px solid var(--red)',
+          borderRadius: 14,
+          fontSize: 14.5,
+          lineHeight: 1.5,
+          color: 'var(--ink-2)',
+          fontFamily: 'JetBrains Mono, monospace',
+        }}>
+          {message}
+        </div>
+
+        <button
+          onClick={onRetry}
+          style={{
+            marginTop: 28,
+            padding: '14px 28px',
+            border: 'none',
+            borderRadius: 12,
+            background: accent,
+            color: '#fff',
+            fontSize: 15.5,
+            fontWeight: 700,
+            cursor: 'pointer',
+          }}
+        >
+          ↺ 다시 시도
+        </button>
+      </div>
+    </Shell>
+  );
+}
+
+window.ErrorScreen = ErrorScreen;
+
 // ─────────────────────────────────────────────────────────────────────────────
 // RESULT SCREEN
 // ─────────────────────────────────────────────────────────────────────────────
@@ -504,6 +622,7 @@ function ResultScreen({ data, submission, onRetry, accent }) {
               fontSize: 11, color: 'var(--ink-3)',
               fontFamily: 'JetBrains Mono, monospace',
               letterSpacing: '0.1em', textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
             }}>
               악마의 변호를 시작합니다
             </span>
@@ -584,6 +703,8 @@ function ResultScreen({ data, submission, onRetry, accent }) {
               padding: '3px 9px', borderRadius: 999,
               color: meta.color, background: meta.bg,
               border: `1px solid ${meta.color}33`,
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
             }}>
               {meta.word}
             </span>
@@ -625,12 +746,8 @@ function ResultScreen({ data, submission, onRetry, accent }) {
           </div>
         </div>
 
-        {/* (3) reason + (4) question */}
-        <FeedbackRow
-          marker="이유"
-          accent="var(--ink-2)"
-          text={current.reason}
-        />
+        {/* (3) question — the reaction bubble above already carries the
+           full reasoning, so we don't repeat it in a second row */}
         <FeedbackRow
           marker="설득 질문"
           accent={accent}

@@ -11,25 +11,55 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 
 function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
-  const [screen, setScreen] = useApS('input'); // 'input' | 'loading' | 'result'
+  const [screen, setScreen] = useApS('input'); // 'input' | 'loading' | 'result' | 'edge' | 'error'
   const [submission, setSubmission] = useApS(null);
   const [result, setResult] = useApS(null);
+  const [edgeMessage, setEdgeMessage] = useApS('');
+  const [errorMessage, setErrorMessage] = useApS('');
 
   const handleSubmit = (payload) => {
     setSubmission(payload);
-    // Run the heuristic simulator with the user's draft + mode.
-    const sim = window.simulateValidation(
-      payload.draft, payload.mode, payload.fileName
-    );
-    setResult(sim);
+    setResult(null);
+    setEdgeMessage('');
+    setErrorMessage('');
     setScreen('loading');
   };
 
+  // Real API call — no static/sample fallback. A minimum visual delay keeps
+  // the loading animation from flashing on a fast response; the actual
+  // screen change waits for whichever finishes last.
   useApE(() => {
-    if (screen !== 'loading') return;
-    const id = setTimeout(() => setScreen('result'), t.loadingMs);
-    return () => clearTimeout(id);
-  }, [screen, t.loadingMs]);
+    if (screen !== 'loading' || !submission) return;
+    let cancelled = false;
+
+    const minDelay = new Promise((resolve) => setTimeout(resolve, t.loadingMs));
+    const apiCall = window.callDevilAdvocate(
+      submission.draft, submission.mode, submission.fileName
+    );
+
+    Promise.allSettled([apiCall, minDelay]).then(([apiOutcome]) => {
+      if (cancelled) return;
+
+      if (apiOutcome.status === 'rejected') {
+        setErrorMessage(
+          (apiOutcome.reason && apiOutcome.reason.message) || String(apiOutcome.reason)
+        );
+        setScreen('error');
+        return;
+      }
+
+      const outcome = apiOutcome.value;
+      if (outcome.kind === 'edge') {
+        setEdgeMessage(outcome.message);
+        setScreen('edge');
+        return;
+      }
+      setResult(outcome.data);
+      setScreen('result');
+    });
+
+    return () => { cancelled = true; };
+  }, [screen, submission]);
 
   const handleRetry = () => setScreen('input');
 
@@ -51,11 +81,27 @@ function App() {
           accent={t.accent}
         />
       )}
-      {screen === 'result' && (
+      {screen === 'result' && result && (
         <ResultScreen
-          data={result || SAMPLE_RESULT}
+          data={result}
           submission={submission}
           onRetry={handleRetry}
+          accent={t.accent}
+        />
+      )}
+      {screen === 'edge' && (
+        <EdgeScreen
+          message={edgeMessage}
+          onRetry={handleRetry}
+          characterSize={Math.round(t.characterSize * 0.9)}
+          accent={t.accent}
+        />
+      )}
+      {screen === 'error' && (
+        <ErrorScreen
+          message={errorMessage}
+          onRetry={handleRetry}
+          characterSize={Math.round(t.characterSize * 0.9)}
           accent={t.accent}
         />
       )}
@@ -79,7 +125,10 @@ function App() {
         ].map(([k, label]) => (
           <button
             key={k}
-            onClick={() => setScreen(k)}
+            onClick={() => {
+              if (k === 'result' && !result) setResult(SAMPLE_RESULT);
+              setScreen(k);
+            }}
             style={{
               padding: '5px 10px',
               border: 'none',
@@ -89,6 +138,8 @@ function App() {
               cursor: 'pointer',
               fontFamily: 'inherit', fontSize: 11,
               fontWeight: 500,
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
             }}
           >{label}</button>
         ))}

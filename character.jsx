@@ -54,17 +54,17 @@ function CharacterFallback({ size }) {
 function Character({ size = 200, state = 'idle', className = '' }) {
   // We track a 'srcIdx' that walks through the candidate sources on error.
   // Cache buster makes the browser re-request after a previously-404'd asset
-  // gets added to the project.
+  // gets added to the project. The spin state uses an animated GIF with real
+  // alpha transparency, so it skips the multiply-blend white-bg hack below.
   const candidates =
     state === 'spin'
-      ? ['character_spin.png?v=2', 'character.png?v=2']
+      ? ['character_spin.gif?v=1', 'character.png?v=2']
       : ['character_intro.png?v=2', 'character.png?v=2'];
 
   const [srcIdx, setSrcIdx] = useState(0);
   const [failed, setFailed] = useState(false);
 
-  const animation =
-    state === 'spin' ? 'spin-slow 2.6s linear infinite' : 'none';
+  const animation = 'none'; // image asset handles motion itself
 
   const wrapStyle = {
     width: size,
@@ -81,9 +81,10 @@ function Character({ size = 200, state = 'idle', className = '' }) {
     objectFit: 'contain',
     objectPosition: 'center',
     display: 'block',
-    // Transparent PNG — no blend needed. (multiply is harmless on transparent
-    // pixels but can darken anti-aliased edges, so we leave it off.)
-    // mixBlendMode removed — devil.png is transparent.
+    // Blends white background into the page bg so the character doesn't sit
+    // in a white box. Skipped for the spin GIF, which already has real alpha
+    // transparency — multiply would just tint its colors against the page bg.
+    mixBlendMode: state === 'spin' ? 'normal' : 'multiply',
   };
 
   return (

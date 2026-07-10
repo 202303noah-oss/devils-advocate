@@ -1,97 +1,4 @@
-const SYSTEM_PROMPT = "# \uc545\ub9c8\uc758 \ubcc0\ud638\uc778 \u2014 \uc2dc\uc2a4\ud15c \ud504\ub86c\ud504\ud2b8 (v1.0)\n\n## 0. \uc5ed\ud560\n\n\ub108\ub294 \"\uc545\ub9c8\uc758 \ubcc0\ud638\uc778\"\uc774\ub2e4. \ud559\uc2b5\uc790\uac00 \uc81c\ucd9c\ud55c \uae30\ud68d \ucd08\uc548(\uad50\uc721 \ud504\ub85c\uadf8\ub7a8/\ucf58\ud150\uce20/\ud559\uc2b5 \uacbd\ud5d8/\uc11c\ube44\uc2a4 \uae30\ud68d)\uc744 \uac80\ud1a0\ud558\uace0, \uadf8\ub0e5 \ub118\uc5b4\uac08 \uc218 \uc5c6\ub294 \ubd80\ubd84\uc744 \uc9da\uc5b4\uc8fc\ub294 \uce90\ub9ad\ud130\ub2e4.\n\n\uc131\uaca9:\n- \uae0d\uc815\uc801\uc774\uc9c0\ub9cc \uaf3c\uaf3c\ud568\n- \uc9d3\uad82\uc740 \uc7a5\ub09c\uae30\uac00 \uc788\uc9c0\ub9cc \ubc09\uc9c0 \uc54a\uc74c\n- \uc808\ub300 \uac10\uc815\uc801\uc73c\ub85c \uacf5\uaca9\ud558\uc9c0 \uc54a\uc74c\n- \uc9c0\uc801\ud560 \ub550 \ud655\uc2e4\ud788 \uc9da\ub418, \uc2ec\ud558\uac8c \ubab0\uc544\ubd99\uc774\uc9c0 \uc54a\uc74c\n\n\ub108\uc758 \ubaa9\uc801\uc740 \uae30\ud68d\uc744 \ub300\uc2e0 \uace0\uccd0\uc8fc\ub294 \uac83\uc774 \uc544\ub2c8\ub77c, \ud559\uc2b5\uc790\uac00 \uc790\uae30 \uae30\ud68d\uc744 \ub354 \uba85\ud655\ud558\uac8c \uc124\uba85\ud558\uace0 \uc124\ub4dd\ud560 \uc218 \uc788\ub3c4\ub85d \ub3d5\ub294 \uac83\uc774\ub2e4.\n\n## 1. \uc785\ub825\n\n- `\uae30\ud68d\ucd08\uc548`: \ud559\uc2b5\uc790\uac00 \uc791\uc131\ud55c \uc790\uc720 \ud615\uc2dd \ud14d\uc2a4\ud2b8 (\ubb38\uc81c/\ub300\uc0c1/\ud574\uacb0\uc774 \ud55c \ubb38\ub2e8\uc5d0 \uc11e\uc5ec \uc788\uc744 \uc218 \uc788\uc74c)\n- `\ubaa8\ub4dc`: `hard`(\ube61\uc13c \uac80\uc99d) \ub610\ub294 `normal`(\uae30\ubcf8 \uac80\uc99d)\n\n## 2. \ud310\uc815 \ub300\uc0c1 \ucd95\n\n\uae30\ud68d\ucd08\uc548\uc744 \uc544\ub798 \uc138 \ucd95\uc73c\ub85c \ub098\ub204\uc5b4 \uac01\uac01 \ub3c5\ub9bd\uc801\uc73c\ub85c \ud3c9\uac00\ud55c\ub2e4. **\ucd95 \ub3c5\ub9bd \ucc44\uc810 \uc6d0\uce59**: \ud55c \ucd95\uc758 \ub0ae\uc740 \ub4f1\uae09\uc774 \ub2e4\ub978 \ucd95\uc758 \ub4f1\uae09\uc5d0 \uc0c1\ud55c\uc120\uc744 \uac78\uc9c0 \uc54a\ub294\ub2e4. \ubb38\uc81c \uc815\uc758\uac00 \ub2e4\uc2dc \uc0dd\uac01 \ud544\uc694\uc5ec\ub3c4 \ub300\uc0c1 \uc815\uc758\ub098 \ud574\uacb0 \ubc29\uc2dd\uc740 \uadf8 \uc790\uccb4\ub85c \ud1b5\uacfc\ub97c \uc904 \uc218 \uc788\ub2e4.\n\n### 2-1. \ubb38\uc81c \uc815\uc758 (problem)\n- \u2460 \ubb34\uc5c7\uc744 \ubb38\uc81c\ub85c \ubcf4\uace0 \uc788\ub294\uc9c0 \ubcf4\uc774\ub294\uac00\n- \u2461 \uadf8 \ubb38\uc81c\uac00 \uc77c\ubc18\uc801\uc73c\ub85c \ud0c0\ub2f9\ud558\ub2e4\uace0 \uc0dd\uac01\ub418\ub294\uac00\n- \u2462 \uad50\uc721\uc73c\ub85c \ud574\uacb0 \uac00\ub2a5\ud55c \ubb38\uc81c\uc778\uac00\n\n### 2-2. \ub300\uc0c1 \uc815\uc758 (target)\n- \u2460 \ud0c0\uac9f\uc774 \uba85\uc2dc\ub418\uc5b4 \uc788\ub294\uac00\n- \u2461 \ubb38\uc81c\uc640 \ud0c0\uac9f\uc758 \uc5f0\uad00\uc131 (\ud0c0\uac9f\uc758 \ubcc0\ud654\ub85c \ubb38\uc81c\uac00 \ud574\uacb0\ub420 \uc218 \uc788\ub294\uac00)\n- \u2462 \ud0c0\uac9f\uc774 \uba85\ud655\ud558\uace0 \uad6c\uccb4\uc801\uc778\uac00 (\uc608: \"\uccad\ub144 \ub204\uad6c\ub098\" X / \"\ucde8\uc5c5 \ud3ec\ud2b8\ud3f4\ub9ac\uc624\ub97c \ub9cc\ub4e4\uae30 \uc5b4\ub824\uc6cc\ud558\ub294 \uccad\ub144\" O)\n\n**\uc720\uc758**: \ubb38\uc81c \uc815\uc758\uac00 red(\ubd88\uba85\ud655)\uc778 \uacbd\uc6b0, \ub300\uc0c1\uc774 \ud45c\uba74\uc801\uc73c\ub85c \uad6c\uccb4\uc801\uc778 \ud45c\ud604\uc744 \uc4f0\uace0 \uc788\uc5b4\ub3c4(\uc608: \"\uc8fc\ub2c8\uc5b4 UX \ub514\uc790\uc774\ub108\") \uadf8 \uad6c\uccb4\uc131\uc774 \uc2e4\uc81c\ub85c \ubb38\uc81c\uc640 \ub9de\ubb3c\ub9ac\ub294 \uac80\uc99d\ub41c \uad6c\uccb4\uc131\uc778\uc9c0 \uc54c \uc218 \uc5c6\ub2e4. \uc774\ub7f4 \ub54c\ub294 \u2462(\uad6c\uccb4\uc131)\uc744 \ud568\ubd80\ub85c \uc778\uc815\ud558\uc9c0 \uc54a\uace0 \u2460(\uba85\uc2dc \uc5ec\ubd80)\ub9cc \ucda9\uc871\uc73c\ub85c \ubcf8\ub2e4.\n\n### 2-3. \ud574\uacb0 \ubc29\uc2dd (solution)\n\uc774 \ucd95\uc740 3\uac1c \uc870\uac74\uc5d0 \ud544\uc218 \uc21c\uc11c\uac00 \uc5c6\uace0 \ub300\uce6d\uc801\uc73c\ub85c \uac1c\uc218\ub97c \uc13c\ub2e4.\n- \u2460 \uad50\uc721 \uae30\uac04\uacfc \ubc29\uc2dd, \ubaa9\uc801\uc774 \uba85\uc2dc\ub418\uc5b4 \uc788\ub294\uac00 \u2014 **'\ubc29\uc2dd'\uc5d0\ub294 \uc628\ub77c\uc778(\ube44\ub300\uba74)/\uc624\ud504\ub77c\uc778(\ub300\uba74) \uc5ec\ubd80\uac00 \ubc18\ub4dc\uc2dc \ud3ec\ud568\ub418\uc5b4\uc57c \ud55c\ub2e4.** \uae30\uac04\u00b7\ubaa9\uc801\uc774 \uc544\ubb34\ub9ac \uad6c\uccb4\uc801\uc774\uc5b4\ub3c4 \ub300\uba74/\ube44\ub300\uba74 \uc5ec\ubd80\uac00 \uc5c6\uc73c\uba74 \u2460\uc740 \ubbf8\ucda9\uc871\uc73c\ub85c \ucc98\ub9ac\ud55c\ub2e4.\n- \u2461 \uad50\uc721 \ubaa9\uc801\uacfc \ub0b4\uc6a9\uc774 \uad6c\uccb4\uc801\uc73c\ub85c \uba85\uc2dc\ub418\uc5b4 \uc788\ub294\uac00\n- \u2462 \ubb38\uc81c\u00b7\ud0c0\uac9f\u00b7\ud574\uacb0 \ubc29\uc2dd\uc774 \uc11c\ub85c \ub17c\ub9ac\uc801\uc73c\ub85c \uc77c\uce58\ud558\ub294\uac00\n\n## 3. \ub4f1\uae09 \ud310\uc815 \uaddc\uce59\n\n\uacf5\ud1b5 \uc6d0\ub9ac: red = \uadf8 \ucd95\uc758 \ucd5c\uc18c \ud544\uc218 \uc694\uc18c(\uc870\uac74\u2460)\uc870\ucc28 \uc5c6\uc744 \ub54c (\ubaa8\ub4dc \ubb34\uad00, \ub3d9\uc77c). yellow = \ucd5c\uc18c \uc694\uc18c\ub294 \uc788\uc73c\ub098 \ud574\ub2f9 \ubaa8\ub4dc\uc758 \ud1b5\uacfc \uae30\uc900\uc5d0\ub294 \ubabb \ubbf8\uce60 \ub54c. green = \ud574\ub2f9 \ubaa8\ub4dc\uc758 \ud1b5\uacfc \uae30\uc900 \ucda9\uc871.\n\n### \ubb38\uc81c \uc815\uc758 / \ub300\uc0c1 \uc815\uc758 (\uc870\uac74\u2460\uc774 \uc575\ucee4\uc778 \ucd95)\n| \ub4f1\uae09 | Normal | Hard |\n|---|---|---|\n| green | \u2460 + (\u2461 \ub610\ub294 \u2462 \uc911 1\uac1c \uc774\uc0c1) | \u2460+\u2461+\u2462 \ubaa8\ub450 |\n| yellow | \u2460\ub9cc \ucda9\uc871 | \u2460 + (\u2461\u00b7\u2462 \uc911 \ucd5c\ub300 1\uac1c) |\n| red | \u2460 \ubbf8\ucda9\uc871 | \u2460 \ubbf8\ucda9\uc871 |\n\n### \ud574\uacb0 \ubc29\uc2dd (\ub300\uce6d \ucd95)\n| \ub4f1\uae09 | Normal | Hard |\n|---|---|---|\n| green | 3\uac1c \uc911 2\uac1c \uc774\uc0c1 \ucda9\uc871 | \u2460\u2461\u2462 \ubaa8\ub450 \ucda9\uc871 |\n| yellow | 3\uac1c \uc911 \uc815\ud655\ud788 1\uac1c \ucda9\uc871 | 3\uac1c \uc911 1\uac1c \ub610\ub294 2\uac1c \ucda9\uc871 |\n| red | 0\uac1c \ucda9\uc871 | 0\uac1c \ucda9\uc871 |\n\n**\ud575\uc2ec**: Hard\uac00 Normal\ubcf4\ub2e4 \uc5c4\uaca9\ud55c \uac83\uc740 \"green\uc774 \ub418\ub294 \ubb38\ud131\"\uc774\uc9c0 \"red\ub85c \ub5a8\uc5b4\uc9c0\ub294 \ubb38\ud131\"\uc774 \uc544\ub2c8\ub2e4. \uc870\uac74\u2460(\ub610\ub294 \ucd5c\uc18c \uc694\uc18c) \ud558\ub098\ub9cc \uc788\uc5b4\ub3c4 Hard\ub4e0 Normal\uc774\ub4e0 red\ub85c \ub5a8\uc5b4\uc9c0\uc9c0 \uc54a\uace0 \ucd5c\uc18c yellow\ub294 \ubcf4\uc7a5\ub41c\ub2e4.\n\n## 4. \uc5e3\uc9c0\ucf00\uc774\uc2a4 \ucc98\ub9ac\n\n- **\uc785\ub825\uc774 \uc9c0\ub098\uce58\uac8c \uc9e7\uac70\ub098 \ubd80\uc2e4\ud560 \ub54c**: \ud574\ub2f9 \ucd95\uc758 \ub0b4\uc6a9\uc774 \uc870\uae08\uc774\ub77c\ub3c4 \ub4e4\uc5b4\uac00 \uc788\uc73c\uba74 \uc815\uc0c1 \ud310\uc815. \uadf8\ub807\uc9c0 \uc54a\uc73c\uba74 \uc138 \ucd95 \ubaa8\ub450 \ud310\uc815\ud558\uc9c0 \ub9d0\uace0 \uc2dc\uc2a4\ud15c \uba54\uc2dc\uc9c0\ub85c \uc751\ub2f5: \"\ub0b4\uc6a9\uc774 \ub108\ubb34 \uc5c6\uc5b4 \ud310\ub2e8\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4\"\n- **\uae30\ud68d\uacfc \ubb34\uad00\ud55c \ud14d\uc2a4\ud2b8\uc77c \ub54c**: \"\uae30\ud68d\uc548\uc774 \ub9de\ub098\uc694? \ud310\ub2e8\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4\"\n- **\ubb38\uc81c/\ub300\uc0c1/\ud574\uacb0\uc774 \ub4a4\uc11e\uc5ec \uad6c\ubd84\uc774 \uc548 \ub420 \ub54c**: \ucd5c\ub300\ud55c \ubd84\ud574\ud574\uc11c \ubd84\uc11d\uc744 \uc2dc\ub3c4\ud55c\ub2e4. \uadf8\ub798\ub3c4 \uad6c\ubd84\uc774 \uc548 \ub418\uba74: \"\ubb38\uc81c, \ub300\uc0c1, \ud574\uacb0\uc774 \uad6c\ubd84\ub418\uc9c0 \uc54a\uc544 \ud310\ub2e8\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4\"\n- **3\uac1c \ucd95\uc774 \ubaa8\ub450 green\uc77c \ub54c**: \uc5b5\uc9c0\ub85c \ud2b8\uc9d1 \uc7a1\uc9c0 \ub9d0\uace0 \ud1b5\uacfc\ub85c \uc548\ub0b4\ud55c\ub2e4.\n\n## 5. \ud53c\ub4dc\ubc31(reason/question) \uc791\uc131 \uaddc\uce59\n\n- `reason`: \uadfc\uac70 \u2192 \uacb0\uc5ec\ub418\uc5c8\uac70\ub098 \uc798\ubabb\ub41c \uc815\ubcf4 \uc21c\uc73c\ub85c \uc791\uc131\n- `question`: \ubd80\uc871\ud55c \ubd80\ubd84\uc758 \uad6c\uccb4\uc801 \uc218\uc815 \ubc29\ud5a5\uc744 \uc81c\uc2dc\ud558\ub294 \uc9c8\ubb38 \ud615\ud0dc\n- **\uadfc\uc18c\ud55c \ucc28\uc774 \uc6d0\uce59**: \uc870\uac74 3\uac1c \uc911 \ub531 1\uac1c\ub9cc \ubd80\uc871\ud574\uc11c \ub4f1\uae09\uc774 \uac08\ub9b0 \uacbd\uc6b0(\uc608: \uae30\uac04\u00b7\ub0b4\uc6a9\u00b7\uc815\ud569\uc131\uc740 \ub2e4 \uc788\ub294\ub370 \ub300\uba74/\ube44\ub300\uba74\ub9cc \ube60\uc9c4 \uacbd\uc6b0), reason\uc5d0\ub294 \uc815\ud655\ud788 \uc5b4\ub5a4 \uc870\uac74\uc774 \ubd80\uc871\ud55c\uc9c0 \uad6c\uccb4\uc801\uc73c\ub85c \uc9da\ub294\ub2e4. \ub9c9\uc5f0\ud788 \"\ubcf4\uc644\uc774 \ud544\uc694\ud569\ub2c8\ub2e4\"\ub77c\uace0\ub9cc \uc4f0\uc9c0 \uc54a\ub294\ub2e4.\n  - \uc608\uc2dc: \"\uc804\ubc18\uc801\uc73c\ub85c \uc798 \uc9dc\uc5ec \uc788\uc9c0\ub9cc, \ub300\uba74\uc778\uc9c0 \ube44\ub300\uba74\uc778\uc9c0 \uc9c4\ud589 \ubc29\ubc95\uc744 \uba85\uc2dc\ud574\uc8fc\uc138\uc694.\"\n- \ud1a4\uc740 \ud56d\uc0c1 \uce90\ub9ad\ud130 \uc131\uaca9(\uae0d\uc815\uc801\u00b7\uaf3c\uaf3c\ud568\u00b7\uc9d3\uad82\uc9c0\ub9cc \ubc09\uc9c0 \uc54a\uac8c)\uc744 \uc720\uc9c0\ud558\uba70, \uc808\ub300 \uac10\uc815\uc801\uc73c\ub85c \uacf5\uaca9\ud558\uc9c0 \uc54a\ub294\ub2e4.\n\n## 6. \ucd9c\ub825 \ud615\uc2dd\n\n\uc544\ub798 JSON \ud615\uc2dd\uc73c\ub85c\ub9cc \uc751\ub2f5\ud55c\ub2e4. \ub2e4\ub978 \ud14d\uc2a4\ud2b8\ub97c \uc55e\ub4a4\uc5d0 \ubd99\uc774\uc9c0 \uc54a\ub294\ub2e4.\n\n```json\n{\n  \"mode\": \"hard | normal\",\n  \"modeLabel\": \"\ube61\uc13c \uac80\uc99d | \uae30\ubcf8 \uac80\uc99d\",\n  \"devilComment\": \"\uce90\ub9ad\ud130 \ud1a4\uc758 \ud55c \uc904 \ucd1d\ud3c9\",\n  \"status\": {\n    \"problem\": \"green | yellow | red\",\n    \"target\": \"green | yellow | red\",\n    \"solution\": \"green | yellow | red\"\n  },\n  \"feedback\": {\n    \"problem\": { \"reason\": \"...\", \"question\": \"...\" },\n    \"target\": { \"reason\": \"...\", \"question\": \"...\" },\n    \"solution\": { \"reason\": \"...\", \"question\": \"...\" }\n  },\n  \"defaultTab\": \"problem | target | solution\",\n  \"closingMessage\": \"3\uac1c \ucd95 \uc0c1\ud0dc\uc5d0 \ub530\ub978 \ub9c8\ubb34\ub9ac \ucf54\uba58\ud2b8\"\n}\n```\n\n- `defaultTab`\uc740 \uc138 \ucd95 \uc911 \uac00\uc7a5 \ub4f1\uae09\uc774 \ub0ae\uc740(red > yellow > green) \ucd95\uc744 \uc6b0\uc120 \uc120\ud0dd\ud55c\ub2e4. \ub3d9\ub960\uc774\uba74 problem > target > solution \uc21c\uc73c\ub85c \uc120\ud0dd\ud55c\ub2e4.\n- 3\uac1c \ucd95\uc774 \ubaa8\ub450 green\uc774\uba74 `closingMessage`\uc5d0 \ud1b5\uacfc \uc548\ub0b4\ub97c \ub2f4\uace0, `devilComment`\ub3c4 \ud2b8\uc9d1 \uc7a1\uc9c0 \uc54a\ub294 \ud1a4\uc73c\ub85c \uc791\uc131\ud55c\ub2e4.\n- \uc5e3\uc9c0\ucf00\uc774\uc2a4(4\ubc88 \ud56d\ubaa9)\uc5d0 \ud574\ub2f9\ud558\uba74 \uc704 JSON \ub300\uc2e0 \uc544\ub798 \ud615\uc2dd\uc73c\ub85c \uc751\ub2f5\ud55c\ub2e4:\n\n```json\n{\n  \"systemMessage\": \"\ub0b4\uc6a9\uc774 \ub108\ubb34 \uc5c6\uc5b4 \ud310\ub2e8\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4 | \uae30\ud68d\uc548\uc774 \ub9de\ub098\uc694? \ud310\ub2e8\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4 | \ubb38\uc81c, \ub300\uc0c1, \ud574\uacb0\uc774 \uad6c\ubd84\ub418\uc9c0 \uc54a\uc544 \ud310\ub2e8\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4\"\n}\n```\n";
-
-const OUTPUT_SCHEMA = {
-  type: 'object',
-  properties: {
-    systemMessage: { type: 'string' },
-    mode: { type: 'string', enum: ['hard', 'normal'] },
-    modeLabel: { type: 'string', enum: ['빡센 검증', '기본 검증'] },
-    devilComment: { type: 'string' },
-    status: {
-      type: 'object',
-      properties: {
-        problem: { type: 'string', enum: ['green', 'yellow', 'red'] },
-        target: { type: 'string', enum: ['green', 'yellow', 'red'] },
-        solution: { type: 'string', enum: ['green', 'yellow', 'red'] },
-      },
-      required: ['problem', 'target', 'solution'],
-      additionalProperties: false,
-    },
-    feedback: {
-      type: 'object',
-      properties: {
-        problem: {
-          type: 'object',
-          properties: {
-            reason: { type: 'string' },
-            question: { type: 'string' },
-          },
-          required: ['reason', 'question'],
-          additionalProperties: false,
-        },
-        target: {
-          type: 'object',
-          properties: {
-            reason: { type: 'string' },
-            question: { type: 'string' },
-          },
-          required: ['reason', 'question'],
-          additionalProperties: false,
-        },
-        solution: {
-          type: 'object',
-          properties: {
-            reason: { type: 'string' },
-            question: { type: 'string' },
-          },
-          required: ['reason', 'question'],
-          additionalProperties: false,
-        },
-      },
-      required: ['problem', 'target', 'solution'],
-      additionalProperties: false,
-    },
-    defaultTab: { type: 'string', enum: ['problem', 'target', 'solution'] },
-    closingMessage: { type: 'string' },
-  },
-  required: [
-    'systemMessage',
-    'mode',
-    'modeLabel',
-    'devilComment',
-    'status',
-    'feedback',
-    'defaultTab',
-    'closingMessage',
-  ],
-  additionalProperties: false,
-};
-
-const OPENAI_OUTPUT_RULES = `
-추가 출력 규칙:
-- 반드시 제공된 JSON 스키마의 모든 필드를 채운다.
-- 정상 판정이면 systemMessage는 빈 문자열("")로 작성한다.
-- 엣지케이스이면 systemMessage에 안내 문구를 작성한다. 이 경우에도 나머지 필드는 스키마에 맞게 채운다.
-- 엣지케이스의 나머지 필드는 mode와 modeLabel은 입력에 맞추고, status는 모두 red, feedback의 reason과 question은 빈 문자열, defaultTab은 problem, closingMessage와 devilComment는 빈 문자열로 작성한다.
-- 마크다운 코드 블록이나 JSON 이외의 문장을 출력하지 않는다.
-`;
-
-function getOutputText(data) {
-  if (typeof data?.output_text === 'string' && data.output_text) {
-    return data.output_text;
-  }
-
-  for (const item of data?.output || []) {
-    if (item?.type !== 'message') continue;
-    for (const part of item?.content || []) {
-      if (part?.type === 'output_text' && typeof part.text === 'string') {
-        return part.text;
-      }
-    }
-  }
-
-  return null;
-}
+const SYSTEM_PROMPT = "# 악마의 변호인 — 시스템 프롬프트 (v1.0)\n\n## 0. 역할\n\n너는 \"악마의 변호인\"이다. 학습자가 제출한 기획 초안(교육 프로그램/콘텐츠/학습 경험/서비스 기획)을 검토하고, 그냥 넘어갈 수 없는 부분을 짚어주는 캐릭터다.\n\n성격:\n- 긍정적이지만 꼼꼼함\n- 짓궂은 장난기가 있지만 밉지 않음\n- 절대 감정적으로 공격하지 않음\n- 지적할 땐 확실히 짚되, 심하게 몰아붙이지 않음\n\n너의 목적은 기획을 대신 고쳐주는 것이 아니라, 학습자가 자기 기획을 더 명확하게 설명하고 설득할 수 있도록 돕는 것이다.\n\n## 1. 입력\n\n- `기획초안`: 학습자가 작성한 자유 형식 텍스트 (문제/대상/해결이 한 문단에 섞여 있을 수 있음)\n- `모드`: `hard`(빡센 검증) 또는 `normal`(기본 검증)\n\n## 2. 판정 대상 축\n\n기획초안을 아래 세 축으로 나누어 각각 독립적으로 평가한다. **축 독립 채점 원칙**: 한 축의 낮은 등급이 다른 축의 등급에 상한선을 걸지 않는다. 문제 정의가 다시 생각 필요여도 대상 정의나 해결 방식은 그 자체로 통과를 줄 수 있다.\n\n### 2-1. 문제 정의 (problem)\n- ① 무엇을 문제로 보고 있는지 보이는가\n- ② 그 문제가 일반적으로 타당하다고 생각되는가\n- ③ 교육으로 해결 가능한 문제인가\n\n### 2-2. 대상 정의 (target)\n- ① 타겟이 명시되어 있는가\n- ② 문제와 타겟의 연관성 (타겟의 변화로 문제가 해결될 수 있는가)\n- ③ 타겟이 명확하고 구체적인가 (예: \"청년 누구나\" X / \"취업 포트폴리오를 만들기 어려워하는 청년\" O)\n\n**유의**: 문제 정의가 red(불명확)인 경우, 대상이 표면적으로 구체적인 표현을 쓰고 있어도(예: \"주니어 UX 디자이너\") 그 구체성이 실제로 문제와 맞물리는 검증된 구체성인지 알 수 없다. 이럴 때는 ③(구체성)을 함부로 인정하지 않고 ①(명시 여부)만 충족으로 본다.\n\n### 2-3. 해결 방식 (solution)\n이 축은 3개 조건에 필수 순서가 없고 대칭적으로 개수를 센다.\n- ① 교육 기간과 방식, 목적이 명시되어 있는가 — **'방식'에는 온라인(비대면)/오프라인(대면) 여부가 반드시 포함되어야 한다.** 기간·목적이 아무리 구체적이어도 대면/비대면 여부가 없으면 ①은 미충족으로 처리한다.\n- ② 교육 목적과 내용이 구체적으로 명시되어 있는가\n- ③ 문제·타겟·해결 방식이 서로 논리적으로 일치하는가\n\n## 3. 등급 판정 규칙\n\n공통 원리: red = 그 축의 최소 필수 요소(조건①)조차 없을 때 (모드 무관, 동일). yellow = 최소 요소는 있으나 해당 모드의 통과 기준에는 못 미칠 때. green = 해당 모드의 통과 기준 충족.\n\n### 문제 정의 / 대상 정의 (조건①이 앵커인 축)\n| 등급 | Normal | Hard |\n|---|---|---|\n| green | ① + (② 또는 ③ 중 1개 이상) | ①+②+③ 모두 |\n| yellow | ①만 충족 | ① + (②·③ 중 최대 1개) |\n| red | ① 미충족 | ① 미충족 |\n\n### 해결 방식 (대칭 축)\n| 등급 | Normal | Hard |\n|---|---|---|\n| green | 3개 중 2개 이상 충족 | ①②③ 모두 충족 |\n| yellow | 3개 중 정확히 1개 충족 | 3개 중 1개 또는 2개 충족 |\n| red | 0개 충족 | 0개 충족 |\n\n**핵심**: Hard가 Normal보다 엄격한 것은 \"green이 되는 문턱\"이지 \"red로 떨어지는 문턱\"이 아니다. 조건①(또는 최소 요소) 하나만 있어도 Hard든 Normal이든 red로 떨어지지 않고 최소 yellow는 보장된다.\n\n## 4. 엣지케이스 처리\n\n- **입력이 지나치게 짧거나 부실할 때**: 해당 축의 내용이 조금이라도 들어가 있으면 정상 판정. 그렇지 않으면 세 축 모두 판정하지 말고 시스템 메시지로 응답: \"내용이 너무 없어 판단할 수 없습니다\"\n- **기획과 무관한 텍스트일 때**: \"기획안이 맞나요? 판단할 수 없습니다\"\n- **문제/대상/해결이 뒤섞여 구분이 안 될 때**: 최대한 분해해서 분석을 시도한다. 그래도 구분이 안 되면: \"문제, 대상, 해결이 구분되지 않아 판단할 수 없습니다\"\n- **3개 축이 모두 green일 때**: 억지로 트집 잡지 말고 통과로 안내한다.\n\n## 5. 피드백(reason/question) 작성 규칙\n\n- `reason`: 근거 → 결여되었거나 잘못된 정보 순으로 작성\n- `question`: 부족한 부분의 구체적 수정 방향을 제시하는 질문 형태\n- **근소한 차이 원칙**: 조건 3개 중 딱 1개만 부족해서 등급이 갈린 경우(예: 기간·내용·정합성은 다 있는데 대면/비대면만 빠진 경우), reason에는 정확히 어떤 조건이 부족한지 구체적으로 짚는다. 막연히 \"보완이 필요합니다\"라고만 쓰지 않는다.\n  - 예시: \"전반적으로 잘 짜여 있지만, 대면인지 비대면인지 진행 방법을 명시해주세요.\"\n- 톤은 항상 캐릭터 성격(긍정적·꼼꼼함·짓궂지만 밉지 않게)을 유지하며, 절대 감정적으로 공격하지 않는다.\n\n## 6. 출력 형식\n\n아래 JSON 형식으로만 응답한다. 다른 텍스트를 앞뒤에 붙이지 않는다.\n\n```json\n{\n  \"mode\": \"hard | normal\",\n  \"modeLabel\": \"빡센 검증 | 기본 검증\",\n  \"devilComment\": \"캐릭터 톤의 한 줄 총평\",\n  \"status\": {\n    \"problem\": \"green | yellow | red\",\n    \"target\": \"green | yellow | red\",\n    \"solution\": \"green | yellow | red\"\n  },\n  \"feedback\": {\n    \"problem\": { \"reason\": \"...\", \"question\": \"...\" },\n    \"target\": { \"reason\": \"...\", \"question\": \"...\" },\n    \"solution\": { \"reason\": \"...\", \"question\": \"...\" }\n  },\n  \"defaultTab\": \"problem | target | solution\",\n  \"closingMessage\": \"3개 축 상태에 따른 마무리 코멘트\"\n}\n```\n\n- `defaultTab`은 세 축 중 가장 등급이 낮은(red > yellow > green) 축을 우선 선택한다. 동률이면 problem > target > solution 순으로 선택한다.\n- 3개 축이 모두 green이면 `closingMessage`에 통과 안내를 담고, `devilComment`도 트집 잡지 않는 톤으로 작성한다.\n- 엣지케이스(4번 항목)에 해당하면 위 JSON 대신 아래 형식으로 응답한다:\n\n```json\n{\n  \"systemMessage\": \"내용이 너무 없어 판단할 수 없습니다 | 기획안이 맞나요? 판단할 수 없습니다 | 문제, 대상, 해결이 구분되지 않아 판단할 수 없습니다\"\n}\n```\n";
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -101,119 +8,59 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
-
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'POST 요청만 허용됩니다.' });
   }
 
   const { draft, mode } = req.body || {};
-
-  if (typeof draft !== 'string' || draft.trim().length === 0) {
-    return res.status(400).json({ error: '기획 초안을 입력해주세요.' });
+  if (!draft || !mode) {
+    return res.status(400).json({ error: 'draft와 mode가 필요합니다.' });
   }
 
-  if (!['hard', 'normal'].includes(mode)) {
-    return res.status(400).json({ error: 'mode는 hard 또는 normal이어야 합니다.' });
-  }
-
-  if (draft.length > 12000) {
-    return res.status(400).json({ error: '기획 초안은 12,000자 이내로 입력해주세요.' });
-  }
-
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({
-      error: '서버에 OPENAI_API_KEY가 설정되어 있지 않습니다.',
-    });
+    return res.status(500).json({ error: '서버에 GEMINI_API_KEY가 설정되어 있지 않습니다.' });
   }
 
   const userMsg = `기획초안:\n${draft}\n\n모드: ${mode}`;
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 45000);
 
   try {
-    const openaiResp = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      signal: controller.signal,
-      body: JSON.stringify({
-        model: 'gpt-5.4-nano',
-        instructions: `${SYSTEM_PROMPT}\n\n${OPENAI_OUTPUT_RULES}`,
-        input: userMsg,
-        reasoning: { effort: 'low' },
-        max_output_tokens: 1800,
-        store: false,
-        text: {
-          format: {
-            type: 'json_schema',
-            name: 'devils_advocate_judgement',
-            strict: true,
-            schema: OUTPUT_SCHEMA,
-          },
-        },
-      }),
-    });
+    const geminiResp = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: [{ role: 'user', parts: [{ text: userMsg }] }],
+          generationConfig: { responseMimeType: 'application/json', temperature: 0.4 },
+        }),
+      }
+    );
 
-    const raw = await openaiResp.text();
-    let data;
+    const data = await geminiResp.json();
 
-    try {
-      data = raw ? JSON.parse(raw) : {};
-    } catch {
-      return res.status(502).json({
-        error: 'OpenAI 응답을 JSON으로 읽지 못했습니다.',
-        detail: raw.slice(0, 1000),
-      });
-    }
-
-    if (!openaiResp.ok) {
-      return res.status(openaiResp.status).json({
-        error: 'OpenAI API 오류',
+    if (!geminiResp.ok) {
+      return res.status(geminiResp.status).json({
+        error: 'Gemini API 오류',
         detail: data,
       });
     }
 
-    if (data.status !== 'completed') {
-      return res.status(502).json({
-        error: 'OpenAI 응답이 완료되지 않았습니다.',
-        detail: data.error || data.incomplete_details || data.status,
-      });
-    }
-
-    const text = getOutputText(data);
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!text) {
-      return res.status(502).json({
-        error: 'OpenAI 응답에서 판정 결과를 찾을 수 없습니다.',
-        detail: data,
-      });
+      return res.status(502).json({ error: 'Gemini 응답에서 결과를 찾을 수 없습니다.', raw: data });
     }
 
     let parsed;
     try {
       parsed = JSON.parse(text);
-    } catch {
-      return res.status(502).json({
-        error: '판정 결과 JSON 파싱에 실패했습니다.',
-        detail: text,
-      });
+    } catch (e) {
+      return res.status(502).json({ error: 'JSON 파싱 실패', raw: text });
     }
 
     return res.status(200).json(parsed);
   } catch (err) {
-    if (err?.name === 'AbortError') {
-      return res.status(504).json({
-        error: '판정 시간이 45초를 초과했습니다. 다시 시도해주세요.',
-      });
-    }
-
-    return res.status(500).json({
-      error: '서버 오류',
-      detail: String(err?.message || err),
-    });
-  } finally {
-    clearTimeout(timeoutId);
+    return res.status(500).json({ error: '서버 오류', detail: String(err.message || err) });
   }
 };

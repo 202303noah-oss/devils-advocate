@@ -17,9 +17,33 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'draft와 mode가 필요합니다.' });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  // Vercel 환경변수에 실수로 붙은 앞뒤 공백·줄바꿈·Bearer·따옴표만 정리합니다.
+  // 실제 API 키 값은 브라우저 응답이나 로그에 절대 출력하지 않습니다.
+  let apiKey = typeof process.env.OPENAI_API_KEY === 'string'
+    ? process.env.OPENAI_API_KEY.trim()
+    : '';
+
+  const stripWrappingQuotes = value => {
+    if (
+      (value.startsWith('\"') && value.endsWith('\"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      return value.slice(1, -1).trim();
+    }
+    return value;
+  };
+
+  apiKey = stripWrappingQuotes(apiKey);
+  apiKey = apiKey.replace(/^Bearer\s+/i, '').trim();
+  apiKey = stripWrappingQuotes(apiKey);
+
+
   if (!apiKey) {
     return res.status(500).json({ error: '서버에 OPENAI_API_KEY가 설정되어 있지 않습니다.' });
+  }
+
+  if (/\s/.test(apiKey)) {
+    return res.status(500).json({ error: '서버의 OPENAI_API_KEY 형식을 확인해주세요.' });
   }
 
   const userMsg = `기획초안:\n${draft}\n\n모드: ${mode}`;
@@ -38,16 +62,30 @@ module.exports = async (req, res) => {
           instructions: SYSTEM_PROMPT,
           input: userMsg,
           text: { format: { type: 'json_object' } },
+          store: false,
         }),
       }
     );
 
-    const data = await openaiResp.json();
+    let data;
+    try {
+      data = await openaiResp.json();
+    } catch (parseError) {
+      console.error('[judge] OpenAI 응답 JSON 변환 실패', {
+        status: openaiResp.status,
+        name: parseError?.name || 'Error',
+      });
+      return res.status(502).json({ error: 'OpenAI 응답을 처리하지 못했습니다.' });
+    }
 
     if (!openaiResp.ok) {
+      console.error('[judge] OpenAI API 오류', {
+        status: openaiResp.status,
+        code: data?.error?.code || data?.error?.type || 'unknown',
+      });
       return res.status(openaiResp.status).json({
         error: 'OpenAI API 오류',
-        detail: data,
+        code: data?.error?.code || data?.error?.type || 'unknown',
       });
     }
 
@@ -57,19 +95,32 @@ module.exports = async (req, res) => {
         ?.find(item => item.type === 'message')
         ?.content?.find(part => part.type === 'output_text')
         ?.text;
+
     if (!text) {
-      return res.status(502).json({ error: 'OpenAI 응답에서 결과를 찾을 수 없습니다.', raw: data });
+      console.error('[judge] OpenAI 응답에서 결과를 찾을 수 없음', {
+        status: openaiResp.status,
+        responseStatus: data?.status || 'unknown',
+      });
+      return res.status(502).json({ error: 'OpenAI 응답에서 결과를 찾을 수 없습니다.' });
     }
 
     let parsed;
     try {
       parsed = JSON.parse(text);
     } catch (e) {
-      return res.status(502).json({ error: 'JSON 파싱 실패', raw: text });
+      console.error('[judge] 판정 결과 JSON 파싱 실패', {
+        name: e?.name || 'Error',
+      });
+      return res.status(502).json({ error: 'JSON 파싱 실패' });
     }
 
     return res.status(200).json(parsed);
   } catch (err) {
-    return res.status(500).json({ error: '서버 오류', detail: String(err.message || err) });
+    // err.message에는 요청 헤더 값이 포함될 수 있으므로 브라우저나 로그에 출력하지 않습니다.
+    console.error('[judge] 서버 오류', {
+      name: err?.name || 'Error',
+      code: err?.code || 'unknown',
+    });
+    return res.status(500).json({ error: '서버 오류' });
   }
 };

@@ -17,39 +17,48 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'draft와 mode가 필요합니다.' });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: '서버에 GEMINI_API_KEY가 설정되어 있지 않습니다.' });
+    return res.status(500).json({ error: '서버에 OPENAI_API_KEY가 설정되어 있지 않습니다.' });
   }
 
   const userMsg = `기획초안:\n${draft}\n\n모드: ${mode}`;
 
   try {
-    const geminiResp = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+    const openaiResp = await fetch(
+      'https://api.openai.com/v1/responses',
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
         body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents: [{ role: 'user', parts: [{ text: userMsg }] }],
-          generationConfig: { responseMimeType: 'application/json', temperature: 0.4 },
+          model: 'gpt-5.4-nano',
+          instructions: SYSTEM_PROMPT,
+          input: userMsg,
+          text: { format: { type: 'json_object' } },
         }),
       }
     );
 
-    const data = await geminiResp.json();
+    const data = await openaiResp.json();
 
-    if (!geminiResp.ok) {
-      return res.status(geminiResp.status).json({
-        error: 'Gemini API 오류',
+    if (!openaiResp.ok) {
+      return res.status(openaiResp.status).json({
+        error: 'OpenAI API 오류',
         detail: data,
       });
     }
 
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const text =
+      data?.output_text ||
+      data?.output
+        ?.find(item => item.type === 'message')
+        ?.content?.find(part => part.type === 'output_text')
+        ?.text;
     if (!text) {
-      return res.status(502).json({ error: 'Gemini 응답에서 결과를 찾을 수 없습니다.', raw: data });
+      return res.status(502).json({ error: 'OpenAI 응답에서 결과를 찾을 수 없습니다.', raw: data });
     }
 
     let parsed;
